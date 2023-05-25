@@ -1,0 +1,4 @@
+node_modules
+RawData/
+config.js
+.DS_Store
