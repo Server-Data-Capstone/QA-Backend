@@ -13,7 +13,7 @@ app.use(cors());
 /** ******** */
 app.get('/qa/questions', controller.getQuestions);
 app.post('/qa/questions', controller.addQuestion);
-app.put('/qa/questions/:question_id/helpful', controller.markQuestionHelpful);
+app.put('/qa/questions/helpful', controller.markQuestionHelpful);
 
 app.get('/qa/questions', controller.getAnswers);
 app.post('/qa/questions/:question_id/answers', controller.addAnswer);

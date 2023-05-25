@@ -1,25 +1,27 @@
 const model = require('./model.js');
 
 module.exports = {
-getQuestions: (req, res) => {
-  console.log(req.query.product_id)
-  model.getQuestions(req.query.product_id)
-  .then(response => res.status(200).send(response.rows))
+  getQuestions: (req, res) => {
+    model.getQuestions(req.query.product_id)
+      .then(r => res.status(200).send({ results: r.rows }))
+      .catch(e => res.status(500).send(e));
+  },
+
+  addQuestion: (req, res) => { },
+
+  markQuestionHelpful: (req, res) => {
+    model.markQuestionHelpful(req.query.id)
+      .then(r => res.status(200).send('Thank you!'))
+      .catch(e => res.status(500).send(e));
+  },
 
 
-},
+  getAnswers: (req, res) => { },
 
-addQuestion: (req, res) => {},
+  addAnswer: (req, res) => { },
 
-markQuestionHelpful: (req, res) => {},
+  markAnswerHelpful: (req, res) => { },
 
-
-getAnswers: (req, res) => {},
-
-addAnswer: (req, res) => {},
-
-markAnswerHelpful: (req, res) => {},
-
-reportAnswer: (req, res) => {},
+  reportAnswer: (req, res) => { },
 
 }
