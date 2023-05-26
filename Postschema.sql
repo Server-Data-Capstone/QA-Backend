@@ -1,3 +1,9 @@
+DROP DATABASE qa;
+
+CREATE DATABASE qa;
+
+\c qa;
+
 CREATE TABLE IF NOT EXISTS questions (
   id SERIAL PRIMARY KEY,
   product_id INTEGER,
