@@ -24,7 +24,11 @@ module.exports = {
 
   addAnswer: (req, res) => { },
 
-  markAnswerHelpful: (req, res) => { },
+  markAnswerHelpful: (req, res) => {
+    model.markAnswerHelpful(req.query.id)
+    .then(r => res.status(200).send('Thank you!'))
+    .catch(e => res.status(500).send(e));
+  },
 
   reportAnswer: (req, res) => { },
 

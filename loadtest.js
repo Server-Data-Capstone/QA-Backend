@@ -1,14 +1,17 @@
 import http from 'k6/http';
-import { check } from 'k6';
+import { sleep, check } from 'k6';
 
 export const options = {
-  vus: 1,
-  duration: '20s',
+  vus: 100,
+  duration: '30s',
 };
 
 export default function () {
-  const res = http.get('http://localhost:3000/qa/questions?product_id=999969');
+  let testId = Math.floor(Math.random() * (1000011 - 900009)) + 900009;
+  const res = http.get(`http://localhost:3000/qa/questions?product_id=${testId}`,
+  {tags: {name: 'productId'}});
   check(res, {
     'is status 200': (r) => r.status === 200
   });
+  sleep(1)
 }

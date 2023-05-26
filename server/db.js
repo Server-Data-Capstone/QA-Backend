@@ -5,6 +5,7 @@ const { Pool } = require('pg');
 const loginOptions = {
   host: process.env.HOST,
   database: process.env.DB,
+  max: 30,
 }
 
 const db = new Pool(loginOptions)

@@ -15,14 +15,27 @@ module.exports = {
 
 
   getAnswers: (questionId) => {
-    console.log(questionId)
-    const queryStr = `SELECT * FROM answers WHERE question_id = ${questionId} AND reported = 0`;
+
+    const queryStr = `SELECT answers.answer_id, body, date, answerer_name, helpfulness,
+    jsonb_agg(jsonb_build_object(
+      'id', answersphoto.answer_id,
+      'url', answersphoto.url
+      )) photos
+    FROM answers
+    LEFT JOIN answersphoto
+    ON answers.answer_id = answersphoto.answer_id
+    WHERE answers.question_id = ${questionId}
+    GROUP BY answers.answer_id`
+
     return db.query(queryStr)
    },
 
   addAnswer: (data) => { },
 
-  markAnswerHelpful: (answerId) => { },
+  markAnswerHelpful: (answerId) => {
+    const queryStr = `UPDATE answers SET helpfulness = helpfulness + 1 WHERE answer_id = ${answerId}`;
+    return db.query(queryStr)
+   },
 
   reportAnswer: (answerId) => { },
 
