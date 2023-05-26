@@ -5,7 +5,7 @@ CREATE DATABASE qa;
 \c qa;
 
 CREATE TABLE IF NOT EXISTS questions (
-  id SERIAL PRIMARY KEY,
+  question_id SERIAL PRIMARY KEY,
   product_id INTEGER,
   question_body TEXT,
   question_date BIGINT,
@@ -16,14 +16,15 @@ CREATE TABLE IF NOT EXISTS questions (
 );
 
 CREATE TABLE IF NOT EXISTS answers (
-  id SERIAL PRIMARY KEY,
+  answer_id SERIAL PRIMARY KEY,
   question_id INTEGER,
   body TEXT,
   answer_date BIGINT,
   answerer_name TEXT,
   answer_email TEXT,
-  helpfulness INTEGER,
   reported INTEGER,
+  helpfulness INTEGER,
+
 
   FOREIGN KEY (question_id) REFERENCES questions(id)
 );

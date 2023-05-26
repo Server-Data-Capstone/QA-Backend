@@ -16,7 +16,11 @@ module.exports = {
   },
 
 
-  getAnswers: (req, res) => { },
+  getAnswers: (req, res) => {
+    model.getAnswers(req.query.id)
+      .then(r => res.status(200).send({ results: r.rows }))
+      .catch(e => res.status(500).send(e));
+   },
 
   addAnswer: (req, res) => { },
 
@@ -25,3 +29,4 @@ module.exports = {
   reportAnswer: (req, res) => { },
 
 }
+

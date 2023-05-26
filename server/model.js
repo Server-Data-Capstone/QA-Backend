@@ -3,7 +3,6 @@ const db = require('./db.js');
 module.exports = {
   getQuestions: (productId) => {
     const queryStr = `SELECT * FROM questions WHERE product_id = ${productId} AND reported = 0`;
-    console.log('this is queryStr', queryStr)
     return db.query(queryStr)
   },
 
@@ -15,7 +14,11 @@ module.exports = {
   },
 
 
-  getAnswers: (questionId) => { },
+  getAnswers: (questionId) => {
+    console.log(questionId)
+    const queryStr = `SELECT * FROM answers WHERE question_id = ${questionId} AND reported = 0`;
+    return db.query(queryStr)
+   },
 
   addAnswer: (data) => { },
 

@@ -15,7 +15,7 @@ app.get('/qa/questions', controller.getQuestions);
 app.post('/qa/questions', controller.addQuestion);
 app.put('/qa/questions/helpful', controller.markQuestionHelpful);
 
-app.get('/qa/questions', controller.getAnswers);
+app.get('/qa/answers', controller.getAnswers);
 app.post('/qa/questions/:question_id/answers', controller.addAnswer);
 app.put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful);
 app.put('/qa/answers/:answer_id/report', controller.reportAnswer);
