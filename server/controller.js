@@ -7,7 +7,11 @@ module.exports = {
       .catch(e => res.status(500).send(e));
   },
 
-  addQuestion: (req, res) => { },
+  addQuestion: (req, res) => {
+    model.addQuestion(req.body)
+    .then(r => res.status(200).send('Question Added!'))
+    .catch(e => res.status(500).send(e));
+   },
 
   markQuestionHelpful: (req, res) => {
     model.markQuestionHelpful(req.query.id)
@@ -15,13 +19,31 @@ module.exports = {
       .catch(e => res.status(500).send(e));
   },
 
+  reportQuestion: (req, res) => {
+    model.reportQuestion(req.query.id)
+    .then(r => res.status(200).send('Question reported.'))
+    .catch(e => res.status(500).send(e));
+   },
 
-  getAnswers: (req, res) => { },
+  getAnswers: (req, res) => {
+    model.getAnswers(req.query.id)
+      .then(r => res.status(200).send({ results: r.rows }))
+      .catch(e => res.status(500).send(e));
+   },
 
   addAnswer: (req, res) => { },
 
-  markAnswerHelpful: (req, res) => { },
+  markAnswerHelpful: (req, res) => {
+    model.markAnswerHelpful(req.query.id)
+    .then(r => res.status(200).send('Thank you!'))
+    .catch(e => res.status(500).send(e));
+  },
 
-  reportAnswer: (req, res) => { },
+  reportAnswer: (req, res) => {
+    model.reportAnswer(req.query.id)
+    .then(r => res.status(200).send('Question reported.'))
+    .catch(e => res.status(500).send(e));
+   },
 
 }
+
