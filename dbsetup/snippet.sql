@@ -32,3 +32,10 @@ GROUP BY answers.id;
 
 
 EXPLAIN ANALYZE SELECT * FROM questions WHERE product_id = 963980;
+
+SELECT setval('questions_id_seq', MAX(question_id)) FROM questions;
+
+SELECT setval('answers_id_seq', MAX(answer_id)) FROM answers;
+
+SELECT setval('answersphoto_id_seq', MAX(id)) FROM answersphoto;
+

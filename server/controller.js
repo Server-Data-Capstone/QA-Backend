@@ -9,7 +9,7 @@ module.exports = {
 
   addQuestion: (req, res) => {
     model.addQuestion(req.body)
-    .then(r => res.status(200).send('Question Added!'))
+    .then(r => res.status(200).send('Question added!'))
     .catch(e => res.status(500).send(e));
    },
 
@@ -31,7 +31,12 @@ module.exports = {
       .catch(e => res.status(500).send(e));
    },
 
-  addAnswer: (req, res) => { },
+  addAnswer: (req, res) => {
+    console.log('this is recieved', req.body)
+    model.addAnswer(req.body)
+    .then(r => res.status(200).send('Answer added!'))
+    .catch(e => res.status(500).send(e));
+   },
 
   markAnswerHelpful: (req, res) => {
     model.markAnswerHelpful(req.query.id)

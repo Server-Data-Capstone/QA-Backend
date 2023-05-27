@@ -7,16 +7,9 @@ module.exports = {
   },
 
   addQuestion: (data) => {
-    // question body   data.question,
-    // asker name   data.user_name,
-    // email  data.email,
-    //product id  data.id
-    let timeNow = Date.now()
-
-    const queryStr = `INSERT INTO questions
-    (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness)
-    VALUES
-    (${data.id},'${data.question}',${timeNow},'${data.user_name}','${data.email}',0,0)`;
+    let timeNow = Date.now();
+    const queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness)
+    VALUES (${data.id},'${data.question}',${timeNow},'${data.user_name}','${data.email}',0,0)`;
     return db.query(queryStr)
    },
 
@@ -44,7 +37,13 @@ module.exports = {
     return db.query(queryStr)
   },
 
-  addAnswer: (data) => { },
+  addAnswer: (data) => {
+    console.log('Shape of data', data);
+    let timeNow = Date.now();
+    const queryStr = `INSERT INTO answers (question_id, body, date, answerer_name, answerer_email, reported, helpfulness)
+    VALUES (${data.id},'${data.answer}',${timeNow},'${data.user_name}','${data.email}',0,0)`;
+    return db.query(queryStr)
+  },
 
   markAnswerHelpful: (answerId) => {
     const queryStr = `UPDATE answers SET helpfulness = helpfulness + 1 WHERE answer_id = ${answerId}`;
