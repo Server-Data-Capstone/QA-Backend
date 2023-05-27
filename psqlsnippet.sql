@@ -11,8 +11,24 @@ ALTER TABLE answers RENAME COLUMN id to answer_id;
 
 ALTER TABLE answers RENAME COLUMN answer_date to date;
 
-CREATE INDEX questions_productid_index ON questions USING HASH (product_id);
-CREATE INDEX answer_index ON answers (answer_id, question_id);
-CREATE INDEX photos_index ON answersphoto USING HASH (answer_id);
+SELECT *
+FROM answers
+LEFT JOIN answersphotos
+ON answers.answer_id = answersphoto.answer_id
+WHERE answers.question_id = _______
 
-UPDATE answers SET helpfulness = helpfulness + 1 WHERE answer_id = 5;
+
+SELECT answers.id, body, answer_date, answerer_name, helpfulness,
+jsonb_agg(jsonb_build_object(
+  'id', answersphoto.answer_id,
+  'url', answersphoto.url
+  )) photos
+FROM answers
+LEFT JOIN answersphoto
+ON answers.id = answersphoto.answer_id
+WHERE answers.question_id = 1
+GROUP BY answers.id;
+
+
+
+EXPLAIN ANALYZE SELECT * FROM questions WHERE product_id = 963980;
