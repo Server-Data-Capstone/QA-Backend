@@ -2,7 +2,9 @@ const db = require('./db.js');
 
 module.exports = {
   getQuestions: (productId) => {
-    const queryStr = `SELECT * FROM questions WHERE product_id = ${productId} AND reported = 0`;
+
+    const queryStr = `SELECT question_id, product_id, question_body, TO_TIMESTAMP(question_date/1000) AS question_date, asker_name, question_helpfulness
+    FROM questions WHERE product_id = 1 AND reported = 0 ORDER BY question_helpfulness DESC`
     return db.query(queryStr)
   },
 
@@ -24,7 +26,7 @@ module.exports = {
   },
 
   getAnswers: (questionId) => {
-    const queryStr = `SELECT answers.answer_id, body, date, answerer_name, helpfulness,
+    const queryStr = `SELECT answers.answer_id, body, TO_TIMESTAMP(date/1000) AS date, answerer_name, helpfulness,
     jsonb_agg(jsonb_build_object(
       'id', answersphoto.answer_id,
       'url', answersphoto.url

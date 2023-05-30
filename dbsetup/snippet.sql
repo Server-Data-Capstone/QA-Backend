@@ -39,3 +39,27 @@ SELECT setval('answers_id_seq', MAX(answer_id)) FROM answers;
 
 SELECT setval('answersphoto_id_seq', MAX(id)) FROM answersphoto;
 
+
+SELECT question_id AS question_id, product_id AS product_id, question_body AS question_body, TO_TIMESTAMP(question_date/1000) AS question_date, asker_name AS asker_name, question_helpfulness AS question_helpfulness
+    FROM questions WHERE product_id = 1 AND reported = 0;
+
+
+SELECT * FROM questions WHERE product_id = 1 AND reported = 0;
+
+SELECT * FROM questions WHERE product_id = 1 AND reported = 0 ORDER BY question_helpfulness DESC;
+
+
+SELECT question_id, product_id, question_body, TO_TIMESTAMP(question_date/1000) AS question_date, asker_name, question_helpfulness
+    FROM questions WHERE product_id = 1 AND reported = 0 ORDER BY question_helpfulness DESC;
+
+
+SELECT answers.answer_id, body, TO_TIMESTAMP(date/1000) AS date, answerer_name, helpfulness,
+    jsonb_agg(jsonb_build_object(
+      'id', answersphoto.answer_id,
+      'url', answersphoto.url
+      )) photos
+    FROM answers
+    LEFT JOIN answersphoto
+    ON answers.answer_id = answersphoto.answer_id
+    WHERE answers.question_id = ${questionId}
+    GROUP BY answers.answer_id`
