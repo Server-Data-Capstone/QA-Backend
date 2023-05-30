@@ -1,7 +1,5 @@
 DROP DATABASE IF EXISTS qa;
-
 CREATE DATABASE qa;
-
 \c qa;
 
 CREATE TABLE IF NOT EXISTS questions (

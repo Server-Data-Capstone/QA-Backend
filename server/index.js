@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require ('express');
+const path = require('path');
 const cors = require('cors');
 const db = require('./db.js')
 const controller = require('./controller');
@@ -7,6 +8,9 @@ const controller = require('./controller');
 const app = express()
 app.use(express.json())
 app.use(cors());
+
+// Serving static files REMOVE before deploy
+app.use(express.static(path.join(__dirname, '../FEC/dist')));
 
 //QUESTIONS
 app.get('/qa/questions', controller.getQuestions);

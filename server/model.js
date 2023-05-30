@@ -2,21 +2,16 @@ const db = require('./db.js');
 
 module.exports = {
   getQuestions: (productId) => {
-    const queryStr = `SELECT * FROM questions WHERE product_id = ${productId} AND reported = 0`;
+
+    const queryStr = `SELECT question_id, product_id, question_body, TO_TIMESTAMP(question_date/1000) AS question_date, asker_name, question_helpfulness
+    FROM questions WHERE product_id = 1 AND reported = 0 ORDER BY question_helpfulness DESC`
     return db.query(queryStr)
   },
 
   addQuestion: (data) => {
-    // question body   data.question,
-    // asker name   data.user_name,
-    // email  data.email,
-    //product id  data.id
-    let timeNow = Date.now()
-
-    const queryStr = `INSERT INTO questions
-    (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness)
-    VALUES
-    (${data.id},'${data.question}',${timeNow},'${data.user_name}','${data.email}',0,0)`;
+    let timeNow = Date.now();
+    const queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness)
+    VALUES (${data.id},'${data.question}',${timeNow},'${data.user_name}','${data.email}',0,0)`;
     return db.query(queryStr)
    },
 
@@ -31,7 +26,7 @@ module.exports = {
   },
 
   getAnswers: (questionId) => {
-    const queryStr = `SELECT answers.answer_id, body, date, answerer_name, helpfulness,
+    const queryStr = `SELECT answers.answer_id, body, TO_TIMESTAMP(date/1000) AS date, answerer_name, helpfulness,
     jsonb_agg(jsonb_build_object(
       'id', answersphoto.answer_id,
       'url', answersphoto.url
@@ -44,7 +39,13 @@ module.exports = {
     return db.query(queryStr)
   },
 
-  addAnswer: (data) => { },
+  addAnswer: (data) => {
+    console.log('Shape of data', data);
+    let timeNow = Date.now();
+    const queryStr = `INSERT INTO answers (question_id, body, date, answerer_name, answerer_email, reported, helpfulness)
+    VALUES (${data.id},'${data.answer}',${timeNow},'${data.user_name}','${data.email}',0,0)`;
+    return db.query(queryStr)
+  },
 
   markAnswerHelpful: (answerId) => {
     const queryStr = `UPDATE answers SET helpfulness = helpfulness + 1 WHERE answer_id = ${answerId}`;
