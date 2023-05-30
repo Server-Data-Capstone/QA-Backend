@@ -5,4 +5,5 @@ config.js
 FEC/
 webpack.config.js
 *config.js
-dbsetup/snippet.sql
+snippet.sql
+.env
