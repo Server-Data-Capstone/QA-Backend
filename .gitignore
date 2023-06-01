@@ -7,3 +7,6 @@ webpack.config.js
 *config.js
 snippet.sql
 .env
+compose/
+.dockerignore
+Dockerfile

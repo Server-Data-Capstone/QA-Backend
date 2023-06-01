@@ -24,5 +24,8 @@ app.post('/qa/answers', controller.addAnswer);
 app.put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful);
 app.put('/qa/answers/:answer_id/report', controller.reportAnswer);
 
+//loader.io
+app.get(process.env.LOAD, (req, res) => {res.send(process.env.LOADKEY)})
+
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
