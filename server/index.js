@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(cors());
 
 // Serving static files REMOVE before deploy
-app.use(express.static(path.join(__dirname, '../FEC/dist')));
+// app.use(express.static(path.join(__dirname, '../FEC/dist')));
 
 //QUESTIONS
 app.get('/qa/questions', controller.getQuestions);
